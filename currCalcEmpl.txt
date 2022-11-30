@@ -1,0 +1,140 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace slujiteli_i_zaplati
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            Programmer a = new Programmer("Ivancho", 35, 8);
+            Designer a2 = new Designer("Pesho", 25, 12);
+            SoftwareTester a3 = new SoftwareTester("Gosho", 86, 5);
+
+            Employee b = new Employee();
+            b.Print();
+            Console.WriteLine(a.Salary());
+            Console.WriteLine(a2.Salary());
+            Console.WriteLine(a3.Salary());
+
+
+            Console.ReadKey();
+        }
+
+    }
+
+    public class Employee
+    {
+        static public List<Employee> Employees = new List<Employee>();
+        private string name;
+        protected int age;
+        public int hours;
+        public double salaryperhour = 30;
+        public double final_salary;
+
+        public string Name
+        {
+            get { return name; }
+            set { name = value; }
+        }
+
+        public Employee(string name, int age, int hours)
+        {
+            this.Name = name;
+            this.age = age;
+            this.hours = hours;
+            this.final_salary = Salary();
+        }
+
+        public Employee()
+        {
+
+        }
+
+        public virtual double Salary()
+        {
+            double a = hours * salaryperhour;
+            return a;
+        }
+
+        public void Print()
+        {
+
+            for (int i = 0; i < Employees.Count; i++)
+            {
+                Console.WriteLine(Employees[i].Name);
+                Console.WriteLine(Employees[i].age);
+                Console.WriteLine(Employees[i].hours);
+                Console.WriteLine(Salary());
+            }
+        }
+    }
+
+    public class Programmer : Employee
+    {
+        public string Name
+        {
+            get { return base.Name; }
+            set { base.Name = value; }
+        }
+        public Programmer(string name, int age, int hours) : base(name, age, hours)
+        {
+            this.Name = name;
+            this.age = age;
+            this.hours = hours;
+            Employees.Add(this);
+        }
+
+        public override double Salary()
+        {
+            double a = ((this.hours * salaryperhour) / 100) * 115;
+            return a;
+        }
+    }
+
+    public class SoftwareTester : Employee
+    {
+        public string Name
+        {
+            get { return base.Name; }
+            set { base.Name = value; }
+        }
+        public SoftwareTester(string name, int age, int hours) : base(name, age, hours)
+        {
+            this.Name = name;
+            this.age = age;
+            this.hours = hours;
+            Employees.Add(this);
+
+        }
+        public override double Salary()
+        {
+            double a = ((hours * salaryperhour) / 100) * 110;
+            return a;
+        }
+    }
+
+    public class Designer : Employee
+    {
+        public string Name
+        {
+            get { return base.Name; }
+            set { base.Name = value; }
+        }
+        public Designer(string name, int age, int hours) : base(name, age, hours)
+        {
+            this.Name = name;
+            this.age = age;
+            this.hours = hours;
+            Employees.Add(this);
+        }
+        public override double Salary()
+        {
+            double a = ((hours * salaryperhour) / 100) * 105;
+            return a;
+        }
+    }
+}
